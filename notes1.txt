@@ -1,0 +1,49 @@
+As a script executes, one can check for a specific value or condition and return success or failure as the result.
+By convention, success is returned as 0, and failure is returned as a non-zero value.
+An easy way to demonstrate success and failure completion is to execute ls on a file that exists and one that doesn't,
+as shown in the following example, where the return value is stored in the environment variable represented by $?:
+
+$ ls /etc/passwd
+/etc/ passwd
+
+$ echo $?
+0
+
+$ ls filethatdoesnotexist
+
+$ ls: cannot access filethatdoesnotexist: No such file or directory
+
+$ echo $?
+2
+
+
+Basic Syntax and Special Characters
+
+Scripts require you to follow a standard language syntax.
+Rules delineate how to define variables and how to construct and format allowed statements, etc.
+ The table lists some special character usages within bash scripts:
+
+Character	Description
+#	Used to add a comment, except when used as \#, or as #! when starting a script
+\	Used at the end of a line to indicate continuation on to the next line
+;	Used to interpret what follows as a new command
+$	Indicates what follows is a variable
+Note that when # is inserted at the beginning of a line of commentary, the whole line is ignored.
+
+# This line will not get executed.
+
+
+The concatenation operator (\) is used to concatenate large commands over several lines in the shell.
+
+
+For example, you want to copy the file /var/ftp/pub/userdata/custdata/read from server1.linux.com
+to the /opt/oradba/master/abc directory on server3.linux.co.in.
+To perform this action, you can write the command using the \ operator as:
+
+scp abc@server1.linux.com:\
+/var/ftp/pub/userdata/custdata/read \
+abc@server3.linux.co.in:\
+/opt/oradba/master/abc/
+
+The command is divided into multiple lines to make it look readable and easier to understand.
+The \ operator at the end of each line combines the commands from multiple lines and executes it as one single command.
